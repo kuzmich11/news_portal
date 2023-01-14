@@ -13,19 +13,19 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
+Route::get('/', static function () {
     return view('welcome');
 });
 
-Route::get('/home', function () {
+Route::get('/home', static function () {
     return "Home";
 });
 
-Route::get('/info', function () {
+Route::get('/info', static function () {
     return "INFO";
 });
 
-Route::get('/news', function () {
+Route::get('/news', static function () {
     return "NEWS";
 });
 
