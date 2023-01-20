@@ -15,7 +15,7 @@ class CategoryController extends Controller
     public function index()
     {
         return \view('category.index', [
-            'category' => $this->returnCategory(),
+            'categories' => $this->returnCategory(),
         ]);
     }
 
@@ -43,12 +43,13 @@ class CategoryController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(int $id)
     {
-        return \view('category.show', [
+        return \view('show', [
+            'categories'=>$this->returnCategory(),
             'category' => $this->returnCategory($id),
             'news' => $this->returnNews(),
         ]);

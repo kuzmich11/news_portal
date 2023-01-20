@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\IndexController as AdminController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\HomePageController;
 use App\Http\Controllers\NewsController;
@@ -19,9 +20,6 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [HomePageController::class, 'index'])
     ->name('home_page');
 
-Route::get('/category', [CategoryController::class, 'index'])
-    ->name('category');
-
 Route::get('/category/{id}/show', [CategoryController::class, 'show'])
     ->where('id', '\d+')
     ->name('category.show');
@@ -29,3 +27,8 @@ Route::get('/category/{id}/show', [CategoryController::class, 'show'])
 Route::get('/news/{id}/show', [NewsController::class, 'show'])
     ->where('id', '\d+')
     ->name('news.show');
+
+Route::group(['prefix'=>'admin'], static function(){
+    Route::get('/', AdminController::class)
+    ->name('admin.index');
+});
