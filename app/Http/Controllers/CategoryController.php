@@ -48,7 +48,7 @@ class CategoryController extends Controller
      */
     public function show(int $id)
     {
-        return \view('show', [
+        return \view('category.show', [
             'categories'=>$this->returnCategory(),
             'category' => $this->returnCategory($id),
             'news' => $this->returnNews(),

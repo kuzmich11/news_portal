@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\User;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class NewsController extends Controller
+class IndexController extends Controller
 {
-    use NewsTrait;
     /**
      * Display a listing of the resource.
      *
@@ -46,10 +46,7 @@ class NewsController extends Controller
      */
     public function show($id)
     {
-        return \view('news.news', [
-            'categories'=>$this->returnCategory(),
-            'news' => $this->returnNews($id),
-        ]);
+        //
     }
 
     /**
