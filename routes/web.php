@@ -1,5 +1,9 @@
 <?php
 
+use App\Http\Controllers\Admin\IndexController as AdminController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\HomePageController;
+use App\Http\Controllers\NewsController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,22 +17,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', static function () {
-    return view('welcome');
-});
+Route::get('/', [HomePageController::class, 'index'])
+    ->name('home_page');
 
-Route::get('/home', static function () {
-    return "Home";
-});
+Route::get('/category/{id}/show', [CategoryController::class, 'show'])
+    ->where('id', '\d+')
+    ->name('category.show');
 
-Route::get('/info', static function () {
-    return "INFO";
-});
+Route::get('/news/{id}/show', [NewsController::class, 'show'])
+    ->where('id', '\d+')
+    ->name('news.show');
 
-Route::get('/news', static function () {
-    return "NEWS";
-});
-
-Route::get('/news/{id}', static function (int $id) {
-    return "NEWS {$id}";
+Route::group(['prefix'=>'admin'], static function(){
+    Route::get('/', AdminController::class)
+    ->name('admin.index');
 });
