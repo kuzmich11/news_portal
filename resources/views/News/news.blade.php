@@ -6,9 +6,9 @@
             From the Firehose
         </h3>
         <div class="blog-post">
-            <h2 class="blog-post-title">{{$news['title']}}</h2>
-            <p class="blog-post-meta">{{$news['created_at']}}<a href="#"> ({{$news['author']}}) </a></p>
-            <p>{{$news['description']}}</p>
+            <h2 class="blog-post-title">{{$news->title}}</h2>
+            <p class="blog-post-meta">{{$news->created_at}}<a href="#"> ({{$news->author}}) </a></p>
+            <p>{{$news->description}}</p>
             <hr>
         </div>
     </div>

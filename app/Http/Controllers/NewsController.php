@@ -2,11 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
+use App\Models\News;
 use Illuminate\Http\Request;
 
 class NewsController extends Controller
 {
-    use NewsTrait;
+    public function __construct(
+        private $news = new News(),
+        private $categories = new Category()
+    ){}
+
     /**
      * Display a listing of the resource.
      *
@@ -46,9 +52,10 @@ class NewsController extends Controller
      */
     public function show($id)
     {
+
         return \view('news.news', [
-            'categories'=>$this->returnCategory(),
-            'news' => $this->returnNews($id),
+            'categories'=>$this->categories->getCategories(),
+            'news' => $this->news->getNewsById($id),
         ]);
     }
 

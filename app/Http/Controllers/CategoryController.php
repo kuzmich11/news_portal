@@ -2,20 +2,31 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
+use App\Models\News;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
-    use NewsTrait;
+    private Category $categories;
+    private News $news;
+
+    public function __construct()
+    {
+        $this->categories = New Category();
+        $this->news = New News();
+    }
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return View
      */
-    public function index()
+    public function index(): View
     {
         return \view('category.index', [
-            'categories' => $this->returnCategory(),
+//            'categories' => $this->returnCategory(),
+            'categories' => $this->categories->getCategories(),
         ]);
     }
 
@@ -44,14 +55,15 @@ class CategoryController extends Controller
      * Display the specified resource.
      *
      * @param int $id
-     * @return \Illuminate\Http\Response
+     * @return View
      */
-    public function show(int $id)
+    public function show(int $id): View
     {
+
         return \view('category.show', [
-            'categories'=>$this->returnCategory(),
-            'category' => $this->returnCategory($id),
-            'news' => $this->returnNews(),
+            'categories'=>$this->categories->getCategories(),
+//            'category' => $this->categories->getCategoryById($id),
+            'news' => $this->news->getNewsIdByCategoryId($id),
         ]);
     }
 
