@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\News;
+use App\QueryBuilders\CategoryQueryBuilder;
+use App\QueryBuilders\NewsQueryBuilder;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 
 class NewsController extends Controller
@@ -47,15 +50,20 @@ class NewsController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param int $id
+     * @param CategoryQueryBuilder $categoryQueryBuilder
+     * @param NewsQueryBuilder $newsQueryBuilder
+     * @return View
      */
-    public function show($id)
-    {
-
+    public function show(
+        int $id,
+        CategoryQueryBuilder $categoryQueryBuilder,
+        NewsQueryBuilder $newsQueryBuilder
+    ): View {
+//        dd($newsQueryBuilder->getNewsById($id));
         return \view('news.news', [
-            'categories'=>$this->categories->getCategories(),
-            'news' => $this->news->getNewsById($id),
+            'categories' => $categoryQueryBuilder->getAll(),
+            'news'=>$newsQueryBuilder->getNewsById($id),
         ]);
     }
 

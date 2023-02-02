@@ -8,4 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class DataSources extends Model
 {
     use HasFactory;
+
+    protected $table = 'data_sources';
+
+    protected $fillable = [
+        'resource_name',
+        'resource_url',
+        'news_title',
+    ];
 }

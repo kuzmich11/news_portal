@@ -2,30 +2,28 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Category;
-use App\Models\News;
+use App\QueryBuilders\CategoryQueryBuilder;
+use App\QueryBuilders\NewsQueryBuilder;
 use Illuminate\Contracts\View\View;
-use Illuminate\Http\Request;
 
 class HomePageController extends Controller
 {
-    public function __construct(
-        private $news = new News(),
-        private $categories = new Category(),
-    )
-    {
-    }
 
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @param CategoryQueryBuilder $categoryQueryBuilder
+     * @param NewsQueryBuilder $newsQueryBuilder
+     * @return View
      */
-    public function index(): View
-    {
+    public function index(
+        CategoryQueryBuilder $categoryQueryBuilder,
+        NewsQueryBuilder $newsQueryBuilder
+    ): View {
+//        dd($newsQueryBuilder->model);
         return \view('homePage', [
-            'categories' => $this->categories->getCategories(),
-            'news'=>$this->news->getNews(),
+            'categories' => $categoryQueryBuilder->getAll(),
+            'news'=>$newsQueryBuilder->getAll(),
         ]);
     }
 

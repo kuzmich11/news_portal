@@ -23,7 +23,7 @@
     <div class="nav-scroller py-1 mb-2">
         <nav class="nav d-flex justify-content-between">
             @foreach ($categories as $c)
-            <a class="p-2 link-secondary" href="{{route('category.show', ['id'=>$c->id])}}">{{$c->title}}</a>
+            <a class="p-2 @if(isset($id) and $id === $c->id) link-primary @else link-secondary @endif" href="{{route('category.show', ['id'=>$c->id])}}">{{$c->title}}</a>
             @endforeach
         </nav>
     </div>

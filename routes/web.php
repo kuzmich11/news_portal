@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\IndexController as AdminController;
 use \App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
+use App\Http\Controllers\Admin\SourceController as AdminSourceController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\HomePageController;
 use App\Http\Controllers\NewsController;
@@ -39,6 +40,7 @@ Route::group(['prefix'=>'admin', 'as' => 'admin.'], static function(){
     ->name('index');
     Route::resource('categories', AdminCategoryController::class);
     Route::resource('news', AdminNewsController::class);
+    Route::resource('sources', AdminSourceController::class);
 });
 
 Route::group(['prefix'=>'user', 'as'=>'user.'], static function(){
