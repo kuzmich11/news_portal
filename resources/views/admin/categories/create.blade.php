@@ -13,14 +13,14 @@
             @csrf
             <div class="form-group">
                 <label for="title">Название категории</label>
-                <input type="text" id="title" name="title" placeholder="Название новости" class="form-control"
+                <input type="text" id="title" name="title" placeholder="Название новости" class="form-control @error('title') is-invalid @enderror"
                        value="{{ old('title') }}">
             </div>
 
             <div class="form-group">
                 <label for="description">Описание категории</label>
                 <textarea name="description" placeholder="Описание категории"
-                          class="form-control">{{old('description')}}</textarea>
+                          class="form-control @error('description') is-invalid @enderror">{{old('description')}}</textarea>
             </div>
 
             <br>
