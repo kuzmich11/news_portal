@@ -1,17 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\User;
 
-use App\Models\Category;
-use App\Models\News;
-use App\QueryBuilders\CategoryQueryBuilder;
-use App\QueryBuilders\NewsQueryBuilder;
+use App\Http\Controllers\Controller;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 
-class CategoryController extends Controller
+class OrdersController extends Controller
 {
-
     /**
      * Display a listing of the resource.
      *
@@ -19,20 +15,17 @@ class CategoryController extends Controller
      */
     public function index(): View
     {
-        return \view('category.index', [
-//            'categories' => $this->returnCategory(),
-            'categories' => $this->categories->getCategories(),
-        ]);
+        return \view('user.orders.index');
     }
 
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return View
      */
-    public function create()
+    public function create(): View
     {
-        //
+        return \view('user.orders.create');
     }
 
     /**
@@ -43,28 +36,18 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return $request->all();
     }
 
     /**
      * Display the specified resource.
      *
      * @param int $id
-     * @param CategoryQueryBuilder $categoryQueryBuilder
-     * @param NewsQueryBuilder $newsQueryBuilder
-     * @return View
+     * @return \Illuminate\Http\Response
      */
-    public function show(
-        int                  $id,
-        CategoryQueryBuilder $categoryQueryBuilder,
-        NewsQueryBuilder     $newsQueryBuilder
-    ): View
+    public function show($id)
     {
-        return \view('category.show', [
-            'id' => $id,
-            'categories' => $categoryQueryBuilder->getAll(),
-            'news' => $newsQueryBuilder->getNewsByCategoryId($id),
-        ]);
+        //
     }
 
     /**

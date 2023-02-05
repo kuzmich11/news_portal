@@ -1,39 +1,31 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\User;
 
-use App\Models\Category;
-use App\Models\News;
-use App\QueryBuilders\CategoryQueryBuilder;
-use App\QueryBuilders\NewsQueryBuilder;
+use App\Http\Controllers\Controller;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 
-class NewsController extends Controller
+class FeedbackController extends Controller
 {
-    public function __construct(
-        private $news = new News(),
-        private $categories = new Category()
-    ){}
-
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return View
      */
-    public function index()
+    public function index(): View
     {
-        //
+        return \view('user.feedback.index');
     }
 
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return View
      */
-    public function create()
+    public function create(): View
     {
-        //
+        return \view('user.feedback.create');
     }
 
     /**
@@ -44,27 +36,18 @@ class NewsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return $request->all();
     }
 
     /**
      * Display the specified resource.
      *
-     * @param int $id
-     * @param CategoryQueryBuilder $categoryQueryBuilder
-     * @param NewsQueryBuilder $newsQueryBuilder
-     * @return View
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
      */
-    public function show(
-        int $id,
-        CategoryQueryBuilder $categoryQueryBuilder,
-        NewsQueryBuilder $newsQueryBuilder
-    ): View {
-//        dd($newsQueryBuilder->getNewsById($id));
-        return \view('news.news', [
-            'categories' => $categoryQueryBuilder->getAll(),
-            'news'=>$newsQueryBuilder->getNewsById($id),
-        ]);
+    public function show($id)
+    {
+        //
     }
 
     /**
