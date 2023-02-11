@@ -82,9 +82,10 @@ class UserController extends Controller
 //        dd($user->fill($request->validated()));
         $user = $user->fill($request->validated());
         if ($user->save()) {
-            return redirect()->route('admin.users.index')->with('success', 'Данные пользователя изменены');
+            return redirect()->route('admin.users.index')
+                ->with('success', __('messages.admin.user.update.success'));
         }
-        return \back()->with('error', 'Не удалось изменить данные пользователя');
+        return \back()->with('error', __('messages.admin.user.update.fail'));
     }
 
     /**

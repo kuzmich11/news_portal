@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Services\ParserService;
 use Illuminate\Database\Seeder;
 
 class CategorySeeder extends Seeder
@@ -19,11 +19,16 @@ class CategorySeeder extends Seeder
 
     private function getData(): array
     {
+        $parser = new ParserService();
+        $load = $parser->setLink('https://www.kommersant.ru/RSS/news.xml')->getParseData();
         $data = [];
-        for ($i = 0; $i < 5; $i++) {
+        foreach ($load['news'] as $news) {
+            if (!empty($data) and in_array($news['category'], array_column($data, 'title'))) {
+                continue;
+            }
             $data[] = [
-                'title' => \fake()->jobTitle(),
-                'description' => \fake()->text(100),
+                'title' => $news['category'],
+                'description' => 'None',
                 'created_at' => now(),
                 'updated_at' => now(),
             ];

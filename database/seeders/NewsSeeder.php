@@ -3,7 +3,7 @@
 namespace Database\Seeders;
 
 use App\Enums\NewsStatusEnum;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Services\ParserService;
 use Illuminate\Database\Seeder;
 
 class NewsSeeder extends Seeder
@@ -20,12 +20,14 @@ class NewsSeeder extends Seeder
 
     private function getData(): array
     {
+        $parser = new ParserService();
+        $load = $parser->setLink('https://www.kommersant.ru/RSS/news.xml')->getParseData();
         $data = [];
-        for ($i = 0; $i < 20; $i++) {
+        foreach ($load['news'] as $news) {
             $data[] = [
-                'title' => \fake()->jobTitle(),
-                'description' => \fake()->text(100),
-                'author' => \fake()->userName(),
+                'title' => $news['title'],
+                'description' => $news['description'],
+                'author' => 'Комерсант',
                 'status' => NewsStatusEnum::DRAFT->value,
                 'created_at' => now(),
                 'updated_at' => now(),
