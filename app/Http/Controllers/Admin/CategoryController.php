@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Categories\CreateRequest;
+use App\Http\Requests\Categories\EditRequest;
 use App\Models\Category;
 use App\QueryBuilders\CategoryQueryBuilder;
 use Illuminate\Contracts\View\View;
@@ -38,12 +40,12 @@ class CategoryController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param Request $request
+     * @param CreateRequest $request
      * @return RedirectResponse
      */
-    public function store(Request $request): RedirectResponse
+    public function store(CreateRequest $request): RedirectResponse
     {
-        $category = new Category($request->except('_token', '_id'));
+        $category = Category::create($request->validated());
         if ($category->save()) {
             return redirect()->route('admin.categories.index')->with('success', 'Категория добавлена');
         }
@@ -78,13 +80,13 @@ class CategoryController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param Request $request
+     * @param EditRequest $request
      * @param Category $category
      * @return RedirectResponse
      */
-    public function update(Request $request, Category $category): RedirectResponse
+    public function update(EditRequest $request, Category $category): RedirectResponse
     {
-        $category = $category->fill($request->except('_token', '_id'));
+        $category = $category->fill($request->validated());
         if ($category->save()) {
             return redirect()->route('admin.categories.index')->with('success', 'Категория изменена');
         }

@@ -1,0 +1,18 @@
+{
+    "Register": "Регистрация",
+    "Name": "Имя",
+    "Email Address": "Email адрес",
+    "Password": "Пароль",
+    "Confirm Password": "Подтвердите пароль",
+    "Login": "Вход",
+    "Remember Me": "Запомнить меня",
+    "Forgot Your Password?": "Забыли пароль?",
+    "Logout": "Выход",
+    "Reset Password": "Сброс пароля",
+    "Verify Your Email Address": "Подтвердите свой Email адрес",
+    "A fresh verification link has been sent to your email address.": "На ваш Email адрес была отправлена ссылка для подтверждения.",
+    "Before proceeding, please check your email for a verification link.": "Прежде чем продолжить, пожалуйста, проверьте свою электронную почту на наличие ссылки для подтверждения.",
+    "If you did not receive the email": "Если вы не получили электронное письмо",
+    "click here to request another": "нажмите здесь, чтобы запросить другой",
+    "Send Password Reset Link": "Отправить ссылку для сброса пароля"
+}

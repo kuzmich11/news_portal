@@ -3,11 +3,14 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Sources\CreateRequest;
+use App\Http\Requests\Sources\EditRequest;
 use App\Models\DataSources;
 use App\QueryBuilders\SourceQueryBuilder;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\DB;
 
 class SourceController extends Controller
 {
@@ -40,12 +43,12 @@ class SourceController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param Request $request
+     * @param CreateRequest $request
      * @return RedirectResponse
      */
-    public function store(Request $request): RedirectResponse
+    public function store(CreateRequest $request): RedirectResponse
     {
-        $source = new DataSources($request->except('_token', 'id'));
+        $source = DataSources::create($request->validated());
 
         if ($source->save()) {
             return redirect()->route('admin.sources.index')->with('success', 'Новость добавлена');
@@ -58,7 +61,7 @@ class SourceController extends Controller
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function show($id)
     {
@@ -81,16 +84,16 @@ class SourceController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param Request $request
+     * @param EditRequest $request
      * @param DataSources $source
      * @return RedirectResponse
      */
-    public function update(Request $request, DataSources $source): RedirectResponse
+    public function update(EditRequest $request, DataSources $source): RedirectResponse
     {
-        $source = $source->fill($request->except('_token', 'id'));
+        $source = $source->fill($request->validated());
 
         if ($source->save()) {
-            return redirect()->route('admin.sources.index')->with('success', 'Новость добавлена');
+            return redirect()->route('admin.sources.index')->with('success', 'Задача добавлена');
         }
 
         return \back()->with('error', 'Не удалось добавить новость');
@@ -100,7 +103,7 @@ class SourceController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function destroy($id)
     {

@@ -5,7 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class CategoryHasNews extends Seeder
+class CategoryHasNewsSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -20,10 +20,10 @@ class CategoryHasNews extends Seeder
     private function getData(): array
     {
         $data = [];
-        for ($i = 0; $i < 20; $i++) {
+        for ($i = 0; $i < 100; $i++) {
             $data[] = [
                 'category_id' => rand(1, 5),
-                'news_id' => rand(1, 20),
+                'news_id' => rand(1, 100),
             ];
         }
         return $data;

@@ -15,14 +15,14 @@
 
             <div class="form-group">
                 <label for="title">Название категории</label>
-                <input type="text" id="title" name="title" placeholder="Название категории" class="form-control"
+                <input type="text" id="title" name="title" placeholder="Название категории" class="form-control @error('title') is-invalid @enderror"
                        value="{{ $category->title }}">
             </div>
 
             <div class="form-group">
                 <label for="description">Описание категории</label>
                 <textarea name="description" placeholder="Описание категории"
-                          class="form-control">{!! $category->description !!}</textarea>
+                          class="form-control @error('description') is-invalid @enderror">{!! $category->description !!}</textarea>
             </div>
 
             <br>
