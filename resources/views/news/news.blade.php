@@ -2,12 +2,13 @@
 @section('content')
 <div class="row">
     <div class="col-md-8">
-        <h3 class="pb-4 mb-4 font-italic border-bottom">
-            From the Firehose
-        </h3>
+        <h2 class="blog-post-title">{{$news->title}}</h2>
+        <p class="blog-post-meta">{{$news->created_at}}<a href="#"> ({{$news->author}}) </a></p>
         <div class="blog-post">
-            <h2 class="blog-post-title">{{$news->title}}</h2>
-            <p class="blog-post-meta">{{$news->created_at}}<a href="#"> ({{$news->author}}) </a></p>
+            @if($news->image !== null)
+                <img src="{{ Storage::disk('public')->url($n->image) }}" style="width: 200px; height: 250px">
+            @endif
+
             <p>{!! $news->description !!}</p>
             <hr>
         </div>

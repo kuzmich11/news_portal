@@ -14,9 +14,7 @@ use App\Http\Controllers\Admin\NewsController as AdminNewsController;
 use App\Http\Controllers\SocialProvidersController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\User\IndexController as UserIndexController;
-use App\Http\Controllers\User\FeedbackController as UserFeedbackController;
-use App\Http\Controllers\User\OrdersController as UserOrdersController;
+use UniSharp\LaravelFilemanager\Lfm;
 
 /*
 |--------------------------------------------------------------------------
@@ -74,4 +72,8 @@ Route::group(['middleware'=>'guest'], static function () {
 
     Route::get('/auth/callback/{driver}', [SocialProvidersController::class, 'callback'])
     ->where('driver', '\w+');
+});
+
+Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth']], function () {
+    Lfm::routes();
 });
