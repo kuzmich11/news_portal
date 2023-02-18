@@ -9,6 +9,7 @@ use App\Http\Requests\News\EditRequest;
 use App\Models\News;
 use App\QueryBuilders\CategoryQueryBuilder;
 use App\QueryBuilders\NewsQueryBuilder;
+use App\Services\UploadService;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Response;
@@ -50,6 +51,7 @@ class NewsController extends Controller
      */
     public function store(CreateRequest $request): RedirectResponse
     {
+//        dd($request);
         $news = News::create($request->validated());
 
         if ($news) {
@@ -95,15 +97,24 @@ class NewsController extends Controller
      * @param News $news
      * @return RedirectResponse
      */
-    public function update(EditRequest $request, News $news): RedirectResponse
-    {
+    public function update(
+        EditRequest $request,
+        News $news,
+        UploadService $uploadService
+    ): RedirectResponse {
+
         $news = $news->fill($request->validated());
-        if ($news->save()) {
-            $news->categories()->sync($request->getCategoryIds());
-            return redirect()->route('admin.news.index')->with('success', 'Новость изменена');
+//        dd($news);
+        if ($request->hasFile('image')) {
+            $news['image'] = $uploadService->uploadImage($request->file('image'));
         }
 
-        return \back()->with('error', 'Не удалось изменить новость');
+        if ($news->save()) {
+            $news->categories()->sync($request->getCategoryIds());
+            return redirect()->route('admin.news.index')->with('success', __('messages.admin.news.update.success'));
+        }
+
+        return \back()->with('error', __('messages.admin.news.update.fail'));
     }
 
     /**

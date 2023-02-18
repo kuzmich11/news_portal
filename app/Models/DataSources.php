@@ -14,6 +14,5 @@ class DataSources extends Model
     protected $fillable = [
         'resource_name',
         'resource_url',
-        'news_title',
     ];
 }

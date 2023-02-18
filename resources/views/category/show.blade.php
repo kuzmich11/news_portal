@@ -5,14 +5,19 @@
         <div class="col-md-6">
             <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
                 <div class="col p-4 d-flex flex-column position-static">
-                    <h2 class="mb-0">
+                    <h2 class="mb-0 h4">
                         <a class="text-dark" href="{{route('news.show', ['id'=>$n->id])}}">{{$n->title}}</a></h2>
                     <div class="mb-1 text-muted">{{$n->created_at}}</div>
-                    <p class="card-text mb-auto">{{$n->description}}</p>
+                    <p class="card-text mb-auto"  style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">{{$n->description}}</p>
                     <a href="{{route('news.show', ['id'=>$n->id])}}" class="stretched-link">Продолжить чтение</a>
                 </div>
+
                 <div class="col-auto d-none d-lg-block">
-                    <svg class="bd-placeholder-img" width="200" height="250" xmlns="http://www.w3.org/2000/svg" aria-label="Placeholder: Thumbnail" preserveaspectratio="xMidYMid slice" role="img" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
+                    @if($n->image !== null)
+                        <img src="{{ Storage::disk('public')->url($n->image) }}" style="width: 200px; height: 250px">
+                    @else
+                        <svg class="bd-placeholder-img" width="200" height="250" xmlns="http://www.w3.org/2000/svg" aria-label="Placeholder: Thumbnail" preserveaspectratio="xMidYMid slice" role="img" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
+                    @endif
                 </div>
             </div>
         </div>

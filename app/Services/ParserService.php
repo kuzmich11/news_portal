@@ -2,23 +2,29 @@
 
 namespace App\Services;
 
+use App\Enums\NewsStatusEnum;
+use App\Http\Requests\News\CreateRequest;
+use App\Models\Category;
+use App\Models\News;
 use App\Services\Contracts\Parser;
+use Illuminate\Support\Facades\Storage;
 use Orchestra\Parser\Xml\Facade as XmlParser;
 
 class ParserService implements Parser
 {
     private string $link;
+
     public function setLink(string $link): self
     {
         $this->link = $link;
         return $this;
     }
 
-    public function getParseData(): array
+    public function saveParseData(): void
     {
         $xml = XmlParser::load($this->link);
 
-        return  $data = $xml->parse([
+        $data = $xml->parse([
             'title' => [
                 'uses' => 'channel.title'
             ],
@@ -35,5 +41,16 @@ class ParserService implements Parser
                 'uses' => 'channel.item[title,link,guid,description,pubDate,category]'
             ],
         ]);
+
+        foreach ($data['news'] as $news) {
+            $newsModel = News::create($news);
+            $categoryModel = Category::firstOrCreate([
+                'title' => $news['category'],
+            ]);
+            \DB::table('categories_has_news')->insert([
+                'category_id' => $categoryModel['id'],
+                'news_id' => $newsModel['id'],
+            ]);
+        }
     }
 }

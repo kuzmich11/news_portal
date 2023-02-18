@@ -26,7 +26,6 @@ class CreateRequest extends FormRequest
         return [
             'resource_name' => ['required', 'string', 'min:2', 'max:200'],
             'resource_url' => ['required', 'url'],
-            'news_title' => ['required', 'string', 'min:5', 'max:200'],
         ];
     }
 
@@ -35,7 +34,6 @@ class CreateRequest extends FormRequest
         return [
             'resource_name' => 'НАЗВАНИЕ РЕСУРСА',
             'resource_url' => 'АДРЕС РЕСУРСА',
-            'title' => 'НАЗВАНИЕ НОВОСТИ',
         ];
     }
 

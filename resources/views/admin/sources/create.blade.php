@@ -22,12 +22,6 @@
                        value="{{old('resource_url')}}">
             </div>
 
-            <div class="form-group">
-                <label for="news_title">Название новости</label>
-                <input type="text" id="news_title" name="news_title" placeholder="Название новости" class="form-control @error('news_title') is-invalid @enderror"
-                       value="{{old('news_title')}}">
-            </div>
-
             <br>
             <button type="submit" class="btn btn-success">Добавить задачу</button>
         </form>

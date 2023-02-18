@@ -22,7 +22,7 @@
         </main>
     </div>
 </div>
-
+@stack('js')
 <script src="{{asset('assets/js/feather.min.js')}}" integrity="sha384-EbSscX4STvYAC/DxHse8z5gEDaNiKAIGW+EpfzYTfQrgIlHywXXrM9SUIZ0BlyfF" crossorigin="anonymous"></script>
 <script src="{{asset('assets/js/Chart.min.js')}}" integrity="sha384-i+dHPTzZw7YVZOx9lbH5l6lP74sLRtMtwN2XjVqjf3uAGAREAF4LMIUDTWEVs4LI" crossorigin="anonymous"></script>
 <script src="{{asset('assets/js/bootstrap.bundle.min.js')}}"></script>
