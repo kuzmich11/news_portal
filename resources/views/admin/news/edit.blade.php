@@ -8,13 +8,13 @@
             @endforeach
         @endif
 
-
-        <form action="{{route('admin.news.update', ['news'=>$news])}}" method="post">
+        <form action="{{route('admin.news.update', ['news'=>$news])}}" method="post" enctype="multipart/form-data">
             @csrf
             @method('put')
             <div class="form-group">
                 <label for="category_ids">Категория</label>
-                <select class="form-control @error('categories_ids') is-invalid @enderror" name="category_ids[]" id="category_ids" multiple>
+                <select class="form-control @error('categories_ids') is-invalid @enderror" name="category_ids[]"
+                        id="category_ids" multiple>
                     <option value="0">--Выбрать--</option>
                     @foreach($categories as $category)
                         <option @if(in_array($category->id, $news->categories->pluck('id')->toArray()))  selected
@@ -24,19 +24,21 @@
             </div>
             <div class="form-group">
                 <label for="title">Заголовок</label>
-                <input type="text" id="title" name="title" placeholder="Название новости" class="form-control @error('title') is-invalid @enderror"
+                <input type="text" id="title" name="title" placeholder="Название новости"
+                       class="form-control @error('title') is-invalid @enderror"
                        value="{{ $news->title }}">
             </div>
 
             <div class="form-group">
                 <label for="author">Автор</label>
-                <input type="text" id="author" name="author" placeholder="Название новости" class="form-control @error('author') is-invalid @enderror"
+                <input type="text" id="author" name="author" placeholder="Название новости"
+                       class="form-control @error('author') is-invalid @enderror"
                        value="{{ $news->author }}">
             </div>
 
             <div class="form-group">
                 <label for="description">Описание новости</label>
-                <textarea name="description" placeholder="Описание новости"
+                <textarea name="description" placeholder="Описание новости" id="description"
                           class="form-control @error('description') is-invalid @enderror">{!! $news->description !!}</textarea>
             </div>
 
@@ -59,4 +61,14 @@
         </form>
     </div>
 @endsection
+@push('js')
+    <script src="{{  asset('assets/js/ckeditor.js') }}"></script>
+    <script>
+        ClassicEditor
+            .create(document.querySelector('#description'))
+            .catch(error => {
+                console.error(error);
+            });
+    </script>
+@endpush
 
