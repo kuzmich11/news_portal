@@ -1,5 +1,6 @@
 @extends('layouts.admin')
 @section('content')
+    <a href="{{ route('admin.parser') }}">Парсить новости</a>
     <div class="d-flex j justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
         <h2>Список новостей</h2>
         <div class="btn-toolbar mb-2 mb-md-0">

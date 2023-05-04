@@ -95,6 +95,7 @@ class NewsController extends Controller
      *
      * @param EditRequest $request
      * @param News $news
+     * @param UploadService $uploadService
      * @return RedirectResponse
      */
     public function update(

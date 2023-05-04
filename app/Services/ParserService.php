@@ -38,19 +38,27 @@ class ParserService implements Parser
                 'uses' => 'channel.image.url'
             ],
             'news' => [
-                'uses' => 'channel.item[title,link,guid,description,pubDate,category]'
+                'uses' => 'channel.item[title,link,description,category]'
             ],
         ]);
 
+
         foreach ($data['news'] as $news) {
-            $newsModel = News::create($news);
-            $categoryModel = Category::firstOrCreate([
-                'title' => $news['category'],
-            ]);
-            \DB::table('categories_has_news')->insert([
-                'category_id' => $categoryModel['id'],
-                'news_id' => $newsModel['id'],
-            ]);
+            if (News::where('title', '=', $news['title'])->first() === null) {
+                $newsModel = News::Create([
+                    'title' => $news['title'],
+                    'link' => $news['link'],
+                    'description' => $news['description'],
+                ]);
+                $categoryModel = Category::firstOrCreate([
+                    'title' => $news['category'],
+                ]);
+                \DB::table('categories_has_news')->insert([
+                    'category_id' => $categoryModel['id'],
+                    'news_id' => $newsModel['id'],
+                ]);
+            }
+
         }
     }
 }
