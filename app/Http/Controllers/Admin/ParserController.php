@@ -17,9 +17,10 @@ class ParserController extends Controller
      *
      * @param Request $request
      * @param Parser $parser
+     * @param SourceQueryBuilder $sourceQueryBuilder
      * @return string
      */
-    public function __invoke(Request $request, Parser $parser, SourceQueryBuilder $sourceQueryBuilder): string
+    public function __invoke(Request $request, Parser $parser, SourceQueryBuilder $sourceQueryBuilder)
     {
         $sources = $sourceQueryBuilder->getAll();
 //        $urls = [
@@ -29,6 +30,9 @@ class ParserController extends Controller
         foreach ($sources as $source) {
             \dispatch(new JobNewsParsing($source->resource_url));
         }
-        return "Parsing completed";
+//        foreach ($urls as $url) {
+//            \dispatch(new JobNewsParsing($url));
+//        }
+        return redirect('admin/news');
     }
 }
